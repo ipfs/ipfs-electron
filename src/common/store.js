@@ -72,6 +72,16 @@ const migrations = {
       flags = flags.filter(f => f !== dhtClientFlag)
       store.set('ipfsConfig.flags', flags)
     }
+  },
+  '>=0.39.1': store => {
+    fileLogger.info('Running migration: >=0.39.1')
+    logger.info('[store]: Migrating to use CID version 1 for files')
+    const useCIDv1 = store.get('ipfsConfig.useCIDv1', null)
+    if (useCIDv1 === null) {
+      // if it's null, it's not set to true or false, so we set it to the new default
+      store.safeSet('ipfsConfig.useCIDv1', true)
+    }
+    // otherwise, it's already set to true or false, so we don't need to do anything
   }
 }
 

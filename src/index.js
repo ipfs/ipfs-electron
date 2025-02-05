@@ -34,6 +34,7 @@ const setupSecondInstance = require('./second-instance')
 const { analyticsKeys } = require('./analytics/keys')
 const handleError = require('./handleError')
 const createSplashScreen = require('./splash/create-splash-screen')
+const enableCIDv1 = require('./enable-cid-v1')
 
 // Hide Dock
 if (app.dock) app.dock.hide()
@@ -82,7 +83,8 @@ async function run () {
       setupNamesysPubsub(),
       setupSecondInstance(),
       // Setup global shortcuts
-      setupTakeScreenshot()
+      setupTakeScreenshot(),
+      enableCIDv1()
     ])
     const submitAppReady = () => {
       logger.addAnalyticsEvent({ withAnalytics: analyticsKeys.APP_READY, dur: getSecondsSinceAppStart() })
